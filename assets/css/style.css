@@ -1,0 +1,205 @@
+/* CONFIG GERAIS */
+:root {
+    --bg-color: #FFFFFF;
+    --text-color: #1A1A1A;
+    --card-bg: #F5F5F5F5;
+    --border-color: #DDDDDD;
+    --header-bg: #ffffff;
+    --input-bg: #efefef;
+    --button-bg: #1a1a1a;
+    --button-text: #ffffff;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Tema escuro */
+[data-theme="dark"] {
+    --bg-color: #1A1A1A;
+    --text-color: #F5F5F5;
+    --card-bg: #2A2A2A;
+    --border-color: #444444;
+    --header-bg: #111111;
+    --input-bg: #333333;
+    --button-bg: #f5f5f5;
+    --button-text: #1a1a1a;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: "Poppins", sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* HEADER */
+header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 24px;
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+    transition: background-color 0.3s ease;
+}
+
+.font-style {
+    font-family: "Iceberg", sans-serif;
+    font-size: 1.8rem;
+    flex: 1;
+}
+
+.font-style em {
+    font-style: italic;
+    opacity: 0.6;
+}
+
+/* BUSCA */
+#search-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 6px 12px;
+    transition: background-color 0.3s ease;
+}
+
+#search-input {
+    border: none;
+    background: transparent;
+    color: var(--text-color);
+    font-family: "Poppins", sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    width: 180px;
+}
+
+#search-input::placeholder {
+    color: var(--text-color);
+    opacity: 0.4;
+}
+
+/* BOTÃO EXPORTAR */
+#exports-notes {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    border-radius: 15px;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+#exports-notes:hover {
+    opacity: 0.8;
+}
+
+/* BOTÃO TEMA */
+#theme-toggle {
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    border-radius: 15px;
+    width: 46px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#theme-toggle:hover {
+    background-color: var(--input-bg);
+}
+
+/* ADD NOTA */
+#add-note-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 24px;
+}
+
+#note-content {
+    flex: 1;
+    padding: 10px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    font-family: "Poppins", sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+#note-content:focus {
+    border-color: var(--button-bg);
+}
+
+#note-content::placeholder {
+    opacity: 0.4;
+}
+
+.add-note {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.add-note:hover {
+    opacity: 0.8;
+}
+
+/* NOTAS */
+#notes-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+    padding: 0 24px 24px;
+}
+
+.note {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 12px;
+    box-shadow: var(--shadow);
+    transition: background-color 0.3s ease;
+}
+
+.note textarea {
+    width: 100%;
+    min-height: 120px;
+    border: none;
+    background: transparent;
+    color: var(--text-color);
+    font-family: "Poppins", sans-serif;
+    font-size: 0.9rem;
+    resize: none;
+    outline: none;
+}
