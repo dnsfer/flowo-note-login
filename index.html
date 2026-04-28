@@ -15,31 +15,29 @@
       href="https://fonts.googleapis.com/css2?family=Iceberg&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
-    <title>Flowo - Note</title>
+    <title>Flowo - Notes</title>
   </head>
   <body>
     <header>
-
-
-      <h1 class="font-style"><em>Flowo</em> Note</h1>
+      <h1 class="font-style"><em>Flowo</em> Notes</h1>
 
       <div id="search-container">
-          <input
+        <input
           type="text"
           name="search"
           id="search-input"
           placeholder="Buscar"
-          />
-          <i class="bi bi-search"></i>
-        </div>
-        
-        <button id="exports-notes">
-            Exportar CSV <i class="bi bi-cloud-arrow-down-fill"></i>
-        </button>
+        />
+        <i class="bi bi-search"></i>
+      </div>
 
-        <button id="theme-toggle">
-          <i class="bi bi-moon-fill"></i>
-        </button>
+      <button id="exports-notes">
+        Exportar CSV <i class="bi bi-cloud-arrow-down-fill btn-export"></i>
+      </button>
+
+      <button id="theme-toggle">
+        <i class="bi bi-moon-fill"></i>
+      </button>
     </header>
 
     <div id="add-note-container">
@@ -49,15 +47,33 @@
         id="note-content"
         placeholder="O que precisa anotar"
       />
-      <button class="add-note"><i class="bi bi-cloud-plus-fill"></i></button>
+
+      <div id="label-picker-wrapper">
+        <button id="label-picker-btn">
+          <i class="bi bi-tag-fill"></i> Etiquetas
+        </button>
+
+        <div id="label-popup" class="hidden">
+          <label><input type="checkbox" value="baixa" /> Baixa</label>
+          <label><input type="checkbox" value="media" /> Média</label>
+          <label><input type="checkbox" value="alta" /> Alta</label>
+          <label><input type="checkbox" value="urgente" /> Urgente</label>
+        </div>
+      </div>
+
+      <button class="add-note"><i class="bi bi-plus-lg"></i></button>
     </div>
 
     <div id="notes-container">
       <div class="note">
-        <textarea placeholder="Anote o que precisa"></textarea>
+        <div class="note-status">
+          <span class="note-priority-badge baixa" data-priority="baixa"></span>
+        </div>
+
+        <textarea placeholder="Anote sua tarefa?"></textarea>
         <i class="bi bi-pin-angle-fill"></i>
         <i class="bi bi-x-lg"></i>
-        <i class="bi bi-file-earmark-plus-fill"></i>
+        <i class="bi bi-stickies"></i>
       </div>
     </div>
   </body>

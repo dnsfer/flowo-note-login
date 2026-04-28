@@ -9,6 +9,9 @@
     --button-bg: #1a1a1a;
     --button-text: #ffffff;
     --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --color-icone: #8f8c8c;
+    --pin-color: #868686cc;
+    --priority-text: #3d353500;
 }
 
 /* Tema escuro */
@@ -78,6 +81,7 @@ header {
     color: var(--text-color);
     font-family: "Poppins", sans-serif;
     font-size: 0.9rem;
+    font-weight: 500;
     outline: none;
     width: 180px;
 }
@@ -85,6 +89,10 @@ header {
 #search-input::placeholder {
     color: var(--text-color);
     opacity: 0.4;
+}
+
+#search-container i {
+    color: var(--color-icone);
 }
 
 /* BOTÃO EXPORTAR */
@@ -107,17 +115,21 @@ header {
     opacity: 0.8;
 }
 
+.btn-export{
+    font-size: 1.2rem;
+}
 /* BOTÃO TEMA */
 #theme-toggle {
     background: none;
     border: 1px solid var(--border-color);
     color: var(--text-color);
-    border-radius: 15px;
-    width: 46px;
+    border-radius: 35px;
+    width: 86px;
     height: 36px;
+    padding: 8px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     cursor: pointer;
     font-size: 1rem;
     transition: background-color 0.2s ease, color 0.2s ease;
@@ -125,6 +137,10 @@ header {
 
 #theme-toggle:hover {
     background-color: var(--input-bg);
+}
+
+#theme-toggle i {
+    font-size: 1rem;
 }
 
 /* ADD NOTA */
@@ -139,7 +155,7 @@ header {
     flex: 1;
     padding: 10px 16px;
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 20px;
     background-color: var(--input-bg);
     color: var(--text-color);
     font-family: "Poppins", sans-serif;
@@ -157,10 +173,11 @@ header {
 }
 
 .add-note {
-    width: 40px;
+    width: 48px;
     height: 40px;
+    padding: 5px 0;
     border: none;
-    border-radius: 8px;
+    border-radius: 15px;
     background-color: var(--button-bg);
     color: var(--button-text);
     font-size: 1.2rem;
@@ -175,12 +192,29 @@ header {
     opacity: 0.8;
 }
 
+.add-note i {
+    font-size: 1.5rem;
+}
+
+#label-picker-btn{
+    padding: 8px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 36px;
+    background: var(--input-bg);
+    color: var(--priority-text);
+    font-family: "Poppins", sans-serif;
+    font-size: .9rem;
+    cursor: pointer;
+    outline: none;
+}
+
+
 /* NOTAS */
 #notes-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 16px;
-    padding: 0 24px 24px;
+    gap: 2rem;
+    padding: 0 2rem 24px;
 }
 
 .note {
@@ -190,6 +224,8 @@ header {
     padding: 12px;
     box-shadow: var(--shadow);
     transition: background-color 0.3s ease;
+    position: relative;
+    min-height: 200px;
 }
 
 .note textarea {
@@ -202,4 +238,112 @@ header {
     font-size: 0.9rem;
     resize: none;
     outline: none;
+}
+
+.note .bi-pin-angle-fill{
+    position: absolute;
+    left: 15px;
+    bottom: 10px;
+    font-size: 1.2rem;
+    color: var(--pin-color);
+    border-radius: 25px;
+    padding: 4px 6px;
+    cursor: pointer;
+}
+.note:hover  > i{
+    opacity: 1;
+}
+.bi-stickies,
+.bi-x-lg{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 1rem;
+    padding: 5px;
+    transition: .3s;
+    color: var(--pin-color);
+    cursor: pointer;
+    opacity: 0;
+}
+
+.note .bi-x-lg{
+    top: 40px;
+}
+
+.note .bi-x-lg:hover,
+.note .bi-stickies:hover{
+    color: #1A1A1A;
+}
+
+#label-picker-wrapper {
+  position: relative;
+}
+
+#label-picker-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+#label-popup{
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 100;
+    min-width: 180px;
+    box-shadow: 0 4px 12px #0000001a;
+}
+
+#label-popup label{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: .85rem;
+    cursor: pointer;
+}
+
+#label-popup.hidden{
+    display: none;
+}
+
+.label-tag{
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 999px;
+    font-size: .7rem;
+    font-weight: 500;
+}
+
+.label-tag.baixa{
+    background: #EAF3DE;
+    color: #3B6D11;
+}
+
+.label-tag.media {
+    background: #FAEEDA;
+    color: #854F0B
+}
+
+.label-tag.alta{
+    background: #FCEBEB;
+    color: #e25050;
+}
+.label-tag.urgente{
+    background: #EEEDFE;
+    color: #c4360b;
 }
