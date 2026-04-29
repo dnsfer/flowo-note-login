@@ -347,12 +347,12 @@ header {
 }
 
 .label-tag.baixa{
-    background: #EAF3DE;
+    background: #d8e9c1;
     color: #3B6D11;
 }
 
 .label-tag.media {
-    background: #FAEEDA;
+    background: #f0e2cb;
     color: #854F0B
 }
 
@@ -361,6 +361,7 @@ header {
     color: #e25050;
 }
 .label-tag.urgente{
-    background: #EEEDFE;
-    color: #c4360b;
+    background: #c9370a;
+    color: #e4dad1;
+    font-weight: 600;
 }
