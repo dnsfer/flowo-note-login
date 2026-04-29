@@ -132,7 +132,7 @@ header {
     justify-content: flex-end;
     cursor: pointer;
     font-size: 1rem;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: background-color 0.5s ease, color 0.2s ease;
 }
 
 #theme-toggle:hover {
@@ -141,6 +141,11 @@ header {
 
 #theme-toggle i {
     font-size: 1rem;
+    transition: transform .5ms ease-in-out;
+}
+
+[data-theme="dark"] #theme-toggle i{
+    transform: translateX(-50px)
 }
 
 /* ADD NOTA */
@@ -319,6 +324,13 @@ header {
 
 #label-popup.hidden{
     display: none;
+}
+
+.note-labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 8px;
 }
 
 .label-tag{
