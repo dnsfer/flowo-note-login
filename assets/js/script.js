@@ -1,3 +1,4 @@
+// ELEMENTOS
 const addNoteBtn = document.querySelector(".add-note");
 
 const noteContent = document.querySelector("#note-content");
@@ -70,3 +71,5 @@ themeToggle.addEventListener("click", () => {
   icon.className = isDark ? "bi bi-moon-fill" : "bi bi-sun-fill";
   localStorage.setItem("theme", newTheme);
 });
+
+

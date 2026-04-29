@@ -12,6 +12,7 @@
     --color-icone: #8f8c8c;
     --pin-color: #868686cc;
     --priority-text: #3d353500;
+    --note-fixed: #afafe7;
 }
 
 /* Tema escuro */
@@ -230,7 +231,7 @@ header {
     box-shadow: var(--shadow);
     transition: background-color 0.3s ease;
     position: relative;
-    min-height: 200px;
+    min-height: 20px;
 }
 
 .note textarea {
@@ -278,6 +279,10 @@ header {
 .note .bi-x-lg:hover,
 .note .bi-stickies:hover{
     color: #1A1A1A;
+}
+
+.note .fixed{
+    background: var(--note-fixed);
 }
 
 #label-picker-wrapper {
