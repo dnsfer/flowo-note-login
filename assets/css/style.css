@@ -116,9 +116,10 @@ header {
     opacity: 0.8;
 }
 
-.btn-export{
+.btn-export {
     font-size: 1.2rem;
 }
+
 /* BOTÃO TEMA */
 #theme-toggle {
     background: none;
@@ -145,7 +146,7 @@ header {
     transition: transform .5ms ease-in-out;
 }
 
-[data-theme="dark"] #theme-toggle i{
+[data-theme="dark"] #theme-toggle i {
     transform: translateX(-50px)
 }
 
@@ -202,7 +203,7 @@ header {
     font-size: 1.5rem;
 }
 
-#label-picker-btn{
+#label-picker-btn {
     padding: 8px 14px;
     border: 1px solid var(--border-color);
     border-radius: 36px;
@@ -246,7 +247,7 @@ header {
     outline: none;
 }
 
-.note .bi-pin-angle-fill{
+.note .bi-pin-angle-fill {
     position: absolute;
     left: 15px;
     bottom: 10px;
@@ -256,11 +257,13 @@ header {
     padding: 4px 6px;
     cursor: pointer;
 }
-.note:hover  > i{
+
+.note:hover>i {
     opacity: 1;
 }
+
 .bi-stickies,
-.bi-x-lg{
+.bi-x-lg {
     position: absolute;
     right: 10px;
     top: 10px;
@@ -272,38 +275,38 @@ header {
     opacity: 0;
 }
 
-.note .bi-x-lg{
+.note .bi-x-lg {
     top: 40px;
 }
 
 .note .bi-x-lg:hover,
-.note .bi-stickies:hover{
+.note .bi-stickies:hover {
     color: #1A1A1A;
 }
 
-.note .fixed{
+.note .fixed {
     background: var(--note-fixed);
 }
 
 #label-picker-wrapper {
-  position: relative;
+    position: relative;
 }
 
 #label-picker-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  background-color: var(--input-bg);
-  color: var(--text-color);
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
-  font-family: "Poppins", sans-serif;
-  font-size: 0.85rem;
-  cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
 }
 
-#label-popup{
+#label-popup {
     position: absolute;
     top: calc(100% + 8px);
     left: 0;
@@ -319,7 +322,7 @@ header {
     box-shadow: 0 4px 12px #0000001a;
 }
 
-#label-popup label{
+#label-popup label {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -327,41 +330,55 @@ header {
     cursor: pointer;
 }
 
-#label-popup.hidden{
+#label-popup.hidden {
     display: none;
 }
 
 .note-labels {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  margin-bottom: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 8px;
 }
 
-.label-tag{
+.label-tag {
     display: inline-block;
-    padding: 3px 12px;
+    padding: 2px 20px;
     border-radius: 999px;
-    font-size: .7rem;
     font-weight: 500;
+    font-size: .65rem;
 }
 
-.label-tag.baixa{
-    background: #d8e9c1;
-    color: #3B6D11;
+.label-tag.baixa {
+    background: #3B6D11;
+    color: #e8fcd8;
+
 }
 
 .label-tag.media {
     background: #f0e2cb;
-    color: #854F0B
+    color: #854F0B;
+
 }
 
-.label-tag.alta{
-    background: #FCEBEB;
-    color: #e25050;
+.label-tag.alta {
+    background: #a83333;
+    color: #f5d9c0;
+
 }
-.label-tag.urgente{
-    background: #c9370a;
+
+.label-tag.urgente {
+    background: #6814ad;
     color: #e4dad1;
-    font-weight: 600;
+
+}
+
+.note-id{
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    font-size: .47rem;
+    color: var(--pin-color);
+    font-weight: 500;
+    letter-spacing: .1rem;
 }

@@ -1,12 +1,8 @@
 // ELEMENTOS
-const addNoteBtn = document.querySelector(".add-note");
-
-const noteContent = document.querySelector("#note-content");
-
 const notesContainer = document.querySelector("#notes-container");
-
+const noteContent = document.querySelector("#note-content");
+const addNoteBtn = document.querySelector(".add-note");
 const labelPickerBtn = document.querySelector("#label-picker-btn");
-
 const labelPopup = document.querySelector("#label-popup");
 
 // DARK MODE
@@ -15,7 +11,7 @@ const icon = themeToggle.querySelector("i");
 
 // Abre/fecha o popup
 labelPickerBtn.addEventListener("click", (e) => {
-  e.stopPropagation(); // ✅ impede fechar imediatamente
+  e.stopPropagation();
   labelPopup.classList.toggle("hidden");
 });
 
@@ -26,10 +22,37 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// Cria o card ao clicar em "+"
-addNoteBtn.addEventListener("click", () => {
+// FUNÇÕES
+function generateId() {
+  return Math.floor(Math.random() * 5000);
+}
+
+function createNote(id, content, labelsHTML) {
+  const element = document.createElement("div");
+  element.classList.add("note");
+  element.dataset.id = id;
+
+  element.innerHTML = `
+  <span class="note-id">#${id}</span>
+    <div class="note-labels">${labelsHTML}</div>
+    <textarea placeholder="Anote sua tarefa?">${content}</textarea>
+    <i class="bi bi-pin-angle-fill"></i>
+    <i class="bi bi-x-lg"></i>
+    <i class="bi bi-stickies"></i>
+  `;
+
+  return element;
+}
+
+function addNote() {
   const texto = noteContent.value.trim();
   if (!texto) return;
+
+  const noteObject = {
+    id: generateId(),
+    content: texto,
+    fixed: false,
+  };
 
   const selecionadas = [
     ...document.querySelectorAll("#label-popup input:checked"),
@@ -43,21 +66,17 @@ addNoteBtn.addEventListener("click", () => {
     )
     .join("");
 
-  const note = document.createElement("div");
-  note.classList.add("note");
-  note.innerHTML = `
-    <div class="note-labels">${labelsHTML}</div>
-    <textarea placeholder="Anote sua tarefa?">${texto}</textarea>
-    <i class="bi bi-pin-angle-fill"></i>
-    <i class="bi bi-x-lg"></i>
-    <i class="bi bi-stickies"></i>
-  `;
+  const noteElement = createNote(noteObject.id, noteObject.content, labelsHTML);
+  notesContainer.appendChild(noteElement);
 
-  notesContainer.appendChild(note);
   noteContent.value = "";
   selecionadas.forEach((cb) => (cb.checked = false));
   labelPopup.classList.add("hidden");
-});
+}
+
+// EVENTOS
+addNoteBtn.addEventListener("click", () => addNote());
+
 // DARK MODE
 const savedTheme = localStorage.getItem("theme") || "";
 document.documentElement.dataset.theme = savedTheme;
@@ -71,5 +90,3 @@ themeToggle.addEventListener("click", () => {
   icon.className = isDark ? "bi bi-moon-fill" : "bi bi-sun-fill";
   localStorage.setItem("theme", newTheme);
 });
-
-
