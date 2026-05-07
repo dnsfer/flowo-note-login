@@ -24,7 +24,7 @@ document.addEventListener("click", (e) => {
 
 // FUNÇÕES
 function generateId() {
-  return Math.floor(Math.random() * 5000);
+  return Date.now()
 }
 
 function createNote(id, content, labelsHTML) {
@@ -48,12 +48,6 @@ function addNote() {
   const texto = noteContent.value.trim();
   if (!texto) return;
 
-  const noteObject = {
-    id: generateId(),
-    content: texto,
-    fixed: false,
-  };
-
   const selecionadas = [
     ...document.querySelectorAll("#label-popup input:checked"),
   ];
@@ -66,12 +60,33 @@ function addNote() {
     )
     .join("");
 
+  const noteObject = {
+    id: generateId(),
+    content: texto,
+    fixed: false,
+    labels: selecionadas.map((cb) => ({
+      value: cb.value,
+      text: cb.labels[0].textContent.trim(),
+    })),
+  };
+  // Preenche o Array na LocalStorage
+  const notes = JSON.parse(localStorage.getItem("notes") || "[]");
+  notes.push(noteObject);
+  saveNotes(notes);
+// Aqui limpa o input
+  noteContent.value = "";
+
+
   const noteElement = createNote(noteObject.id, noteObject.content, labelsHTML);
   notesContainer.appendChild(noteElement);
 
   noteContent.value = "";
   selecionadas.forEach((cb) => (cb.checked = false));
   labelPopup.classList.add("hidden");
+}
+
+function saveNotes(notes) {
+  localStorage.setItem("notes", JSON.stringify(notes));
 }
 
 // EVENTOS
