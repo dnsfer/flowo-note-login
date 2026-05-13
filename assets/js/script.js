@@ -9,22 +9,10 @@ const labelPopup = document.querySelector("#label-popup");
 const themeToggle = document.querySelector("#theme-toggle");
 const icon = themeToggle.querySelector("i");
 
-// Abre/fecha o popup
-labelPickerBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  labelPopup.classList.toggle("hidden");
-});
-
-// Fecha ao clicar fora
-document.addEventListener("click", (e) => {
-  if (!e.target.closest("#label-picker-wrapper")) {
-    labelPopup.classList.add("hidden");
-  }
-});
-
 // FUNÇÕES
 function generateId() {
-  return Date.now()
+  return Date.now().toString().slice(-6);
+  //Pegar somente o final do ID escolhido.
 }
 
 function createNote(id, content, labelsHTML) {
@@ -33,13 +21,16 @@ function createNote(id, content, labelsHTML) {
   element.dataset.id = id;
 
   element.innerHTML = `
-  <span class="note-id">#${id}</span>
     <div class="note-labels">${labelsHTML}</div>
     <textarea placeholder="Anote sua tarefa?">${content}</textarea>
     <i class="bi bi-pin-angle-fill"></i>
     <i class="bi bi-x-lg"></i>
     <i class="bi bi-stickies"></i>
   `;
+
+  element.querySelector(".bi-x-lg").addEventListener("click", () => {
+    deleteNote(id, element);
+  });
 
   return element;
 }
@@ -73,9 +64,6 @@ function addNote() {
   const notes = JSON.parse(localStorage.getItem("notes") || "[]");
   notes.push(noteObject);
   saveNotes(notes);
-// Aqui limpa o input
-  noteContent.value = "";
-
 
   const noteElement = createNote(noteObject.id, noteObject.content, labelsHTML);
   notesContainer.appendChild(noteElement);
@@ -89,19 +77,62 @@ function saveNotes(notes) {
   localStorage.setItem("notes", JSON.stringify(notes));
 }
 
-// EVENTOS
-addNoteBtn.addEventListener("click", () => addNote());
-
 // DARK MODE
-const savedTheme = localStorage.getItem("theme") || "";
-document.documentElement.dataset.theme = savedTheme;
-icon.className = savedTheme === "dark" ? "bi bi-sun-fill" : "bi bi-moon-fill";
+function initTheme() {
+  const savedTheme = localStorage.getItem("theme") || "";
+  document.documentElement.dataset.theme = savedTheme;
+  icon.className = savedTheme === "dark" ? "bi bi-sun-fill" : "bi bi-moon-fill";
+}
 
-themeToggle.addEventListener("click", () => {
+function toggleTheme() {
   const isDark = document.documentElement.dataset.theme === "dark";
   const newTheme = isDark ? "" : "dark";
 
   document.documentElement.dataset.theme = newTheme;
   icon.className = isDark ? "bi bi-moon-fill" : "bi bi-sun-fill";
   localStorage.setItem("theme", newTheme);
+}
+
+function loadNotes() {
+  const notes = JSON.parse(localStorage.getItem("notes") || "[]");
+
+  notes.forEach((note) => {
+    const labelsHTML = note.labels
+      .map(
+        (label) => `<span class="label-tag ${label.value}">${label.text}</span>`
+      )
+      .join("");
+
+    const noteElement = createNote(note.id, note.content, labelsHTML);
+    notesContainer.appendChild(noteElement);
+  });
+}
+
+function deleteNote(id, element) {
+  const notes = JSON.parse(localStorage.getItem("notes") || "[]");
+  const updatedNotes = notes.filter((note) => String(note.id) !== String(id));
+  saveNotes(updatedNotes);
+
+  element.remove();
+}
+// EVENTOS
+addNoteBtn.addEventListener("click", () => addNote());
+
+themeToggle.addEventListener("click", () => toggleTheme());
+
+// Abre/fecha o popup
+labelPickerBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  labelPopup.classList.toggle("hidden");
 });
+
+// Fecha ao clicar fora
+document.addEventListener("click", (e) => {
+  if (!e.target.closest("#label-picker-wrapper")) {
+    labelPopup.classList.add("hidden");
+  }
+});
+
+// Inicialização
+initTheme();
+loadNotes();

@@ -237,7 +237,7 @@ header {
 
 .note textarea {
     width: 100%;
-    min-height: 120px;
+    min-height: 100px;
     border: none;
     background: transparent;
     color: var(--text-color);
@@ -246,7 +246,7 @@ header {
     resize: none;
     outline: none;
     padding: 0 12px;
-    margin-top: 25px;
+    margin-top: 5px;
 }
 
 .note .bi-pin-angle-fill {
@@ -267,8 +267,8 @@ header {
 .bi-stickies,
 .bi-x-lg {
     position: absolute;
-    right: 4px;
-    top: 13px;
+    right: 8px;
+    top: 10px;
     font-size: 1rem;
     padding: 5px;
     transition: .3s;
@@ -284,7 +284,8 @@ header {
 
 .note .bi-x-lg:hover,
 .note .bi-stickies:hover {
-    color: #1A1A1A;
+    color: #b9b8b8;
+
 }
 
 .note .fixed {
