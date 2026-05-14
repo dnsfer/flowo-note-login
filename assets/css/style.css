@@ -249,10 +249,7 @@ header {
     margin-top: 5px;
 }
 
-.note .bi-pin-angle-fill {
-    position: absolute;
-    left: 15px;
-    bottom: 10px;
+.note-icons .bi-pin-angle-fill {
     font-size: 1.2rem;
     color: var(--pin-color);
     border-radius: 25px;
@@ -260,32 +257,36 @@ header {
     cursor: pointer;
 }
 
-.note:hover>i {
+.note:hover .note-icons i {
     opacity: 1;
 }
 
-.bi-stickies,
-.bi-x-lg {
+
+.note-icons{
     position: absolute;
-    right: 8px;
-    top: 10px;
+    bottom: 10px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.note-icons .bi-stickies,
+.note-icons .bi-trash3 {
     font-size: 1rem;
     padding: 5px;
     transition: .3s;
     color: var(--pin-color);
     cursor: pointer;
     opacity: 0;
-    margin-top: 13px;
 }
 
-.note .bi-x-lg {
-    top: 40px;
-}
-
-.note .bi-x-lg:hover,
+.note .bi-trash3:hover,
 .note .bi-stickies:hover {
     color: #b9b8b8;
 
+}
+.note-icons .bi-trash3:hover{
+    color: #a83333;
 }
 
 .note .fixed {

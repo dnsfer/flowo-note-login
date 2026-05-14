@@ -23,12 +23,14 @@ function createNote(id, content, labelsHTML) {
   element.innerHTML = `
     <div class="note-labels">${labelsHTML}</div>
     <textarea placeholder="Anote sua tarefa?">${content}</textarea>
-    <i class="bi bi-pin-angle-fill"></i>
-    <i class="bi bi-x-lg"></i>
-    <i class="bi bi-stickies"></i>
+    <div class="note-icons">
+      <i class="bi bi-pin-angle-fill"></i>
+      <i class="bi bi-stickies"></i>
+      <i class="bi bi-trash3"></i>
+    </div>
   `;
 
-  element.querySelector(".bi-x-lg").addEventListener("click", () => {
+  element.querySelector(".bi-trash3").addEventListener("click", () => {
     deleteNote(id, element);
   });
 
