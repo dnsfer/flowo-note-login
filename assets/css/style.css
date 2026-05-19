@@ -251,7 +251,7 @@ header {
 
 .note-icons .bi-pin-angle-fill {
     font-size: 1.2rem;
-    color: var(--pin-color);
+    /* color: var(--pin-color); */
     border-radius: 25px;
     padding: 4px 6px;
     cursor: pointer;
@@ -264,11 +264,11 @@ header {
 
 .note-icons{
     position: absolute;
-    bottom: 10px;
-    left: 10px;
+    bottom: 2px;
+    left: 28px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
 }
 .note-icons .bi-stickies,
 .note-icons .bi-trash3 {
@@ -289,8 +289,13 @@ header {
     color: #a83333;
 }
 
+.note .bi-stickies:hover{
+    color: rgb(36, 92, 124);
+}
+
 .note .fixed {
     background: var(--note-fixed);
+    border: 2px solid goldenrod;
 }
 
 #label-picker-wrapper {

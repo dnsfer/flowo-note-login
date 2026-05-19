@@ -10,21 +10,25 @@ const themeToggle = document.querySelector("#theme-toggle");
 const icon = themeToggle.querySelector("i");
 
 // FUNÇÕES
+function getNotes() {
+  return JSON.parse(localStorage.getItem("notes") || "[]");
+}
 function generateId() {
   return Date.now().toString().slice(-6);
   //Pegar somente o final do ID escolhido.
 }
 
-function createNote(id, content, labelsHTML) {
+function createNote(id, content, labelsHTML, fixed = false) {
   const element = document.createElement("div");
   element.classList.add("note");
+  if (fixed) element.classList.add("fixed");
   element.dataset.id = id;
 
   element.innerHTML = `
     <div class="note-labels">${labelsHTML}</div>
     <textarea placeholder="Anote sua tarefa?">${content}</textarea>
     <div class="note-icons">
-      <i class="bi bi-pin-angle-fill"></i>
+      
       <i class="bi bi-stickies"></i>
       <i class="bi bi-trash3"></i>
     </div>
@@ -34,7 +38,27 @@ function createNote(id, content, labelsHTML) {
     deleteNote(id, element);
   });
 
+  const pinIcon = document.createElement("i");
+
+  pinIcon.classList.add(...["bi", "bi-pin-angle-fill"]);
+
+  element.appendChild(pinIcon);
+
+  element.querySelector(".bi-pin-angle-fill").addEventListener("click", () => {
+    toggleFixNote(id);
+  });
+
   return element;
+}
+
+function toggleFixNote(id) {
+  const notes = getNotes();
+  const targetNote = notes.find((n) => n.id === id);
+  targetNote.fixed = !targetNote.fixed;
+  saveNotes(notes);
+  fixedRender();
+
+  
 }
 
 function addNote() {
@@ -79,7 +103,26 @@ function saveNotes(notes) {
   localStorage.setItem("notes", JSON.stringify(notes));
 }
 
-// DARK MODE
+function fixedRender() {
+  notesContainer.innerHTML = "";
+
+  const notes = getNotes();
+
+  const fixedSorted = [
+    ...notes.filter((n) => n.fixed),
+    ...notes.filter((n) => !n.fixed),
+  ];
+
+  fixedSorted.forEach((note) => {
+    const labelsHTML = note.labels
+      .map((l) => `<span class="label-tag ${l.value}">${l.text}</span>`)
+      .join("");
+
+    const el = createNote(note.id, note.content, labelsHTML, note.fixed);
+    notesContainer.appendChild(el);
+  });
+}
+// DARK MODED
 function initTheme() {
   const savedTheme = localStorage.getItem("theme") || "";
   document.documentElement.dataset.theme = savedTheme;
@@ -137,4 +180,4 @@ document.addEventListener("click", (e) => {
 
 // Inicialização
 initTheme();
-loadNotes();
+fixedRender();
