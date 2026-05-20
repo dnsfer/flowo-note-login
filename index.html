@@ -65,10 +65,19 @@
       <button class="add-note"><i class="bi bi-plus-lg"></i></button>
     </div>
 
-    <div id="notes-container">
-        
+    <div id="notes-container"></div>
 
-        
+    <div id="edit-popup" class="hidden">
+      <div id="edit-popup-content">
+        <h3>Editar nota</h3>
+        <textearea id="edit-texteare"></textearea>
+        <div id="edit-labels">
+          <button class="priority-btn" data-value="baixa">Baixa</button>
+          <button class="priority-btn" data-value="media">Média</button>
+          <button class="priority-btn" data-value="alta">Alta</button>
+          <button class="priority-btn" data-value="urgente">Urgente</button>
+        </div>
+      </div>
     </div>
   </body>
 </html>

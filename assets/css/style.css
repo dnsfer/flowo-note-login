@@ -1,7 +1,7 @@
 /* CONFIG GERAIS */
 :root {
     --bg-color: #FFFFFF;
-    --text-color: #1A1A1A;
+    --text-color: #0e0c0c;
     --card-bg: #F5F5F5F5;
     --border-color: #DDDDDD;
     --header-bg: #ffffff;
@@ -12,7 +12,8 @@
     --color-icone: #8f8c8c;
     --pin-color: #7575755b;
     --priority-text: #3d353500;
-    --note-fixed: #afafe7;
+    --note-fixed: #93acb157;
+    --shadow: 
 }
 
 /* Tema escuro */
@@ -250,8 +251,8 @@ header {
 }
 
 .note-icons .bi-pin-angle-fill {
-    font-size: 1.2rem;
-    /* color: var(--pin-color); */
+    font-size: 1rem;
+    color: var(--pin-color);
     border-radius: 25px;
     padding: 4px 6px;
     cursor: pointer;
@@ -293,7 +294,7 @@ header {
     color: rgb(36, 92, 124);
 }
 
-.note .fixed {
+.note.fixed {
     background: var(--note-fixed);
     border: 2px solid goldenrod;
 }
@@ -367,18 +368,18 @@ header {
 
 .label-tag.media {
     background: #f0e2cb;
-    color: #854F0B;
+    color: #bd761f;
 
 }
 
 .label-tag.alta {
-    background: #a83333;
+    background: #c02424;
     color: #f5d9c0;
 
 }
 
 .label-tag.urgente {
-    background: #6814ad;
+    background: #511880;
     color: #e4dad1;
 
 }
@@ -392,4 +393,34 @@ header {
     font-weight: 600;
     letter-spacing: .11rem;
     
+}
+
+
+/* POPUP EDIT CARDS */
+
+#edit-popup{
+    position: fixed;
+    inset: 0;
+    background: #1111113d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+/* #edit-popup .hidden{
+    display: none;
+} */
+
+#edit-popup-content{
+    background: var(--card-bg);
+    color: var(--text-color);
+    padding: 25px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 320px;
+    box-shadow: var(--shadow);
+
 }
