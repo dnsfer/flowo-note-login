@@ -54,12 +54,12 @@
           <i class="bi bi-tag-fill"></i> Etiquetas
         </button>
 
-        <div id="label-popup" class="hidden">
-          <label><input type="checkbox" value="baixa" /> Baixa</label>
-          <label><input type="checkbox" value="media" /> Média</label>
-          <label><input type="checkbox" value="alta" /> Alta</label>
-          <label><input type="checkbox" value="urgente" /> Urgente</label>
-        </div>
+        <ul id="label-popup" class="hidden">
+          <li data-value="baixa">Baixa</li>
+          <li data-value="media">Média</li>
+          <li data-value="alta">Alta</li>
+          <li data-value="urgente">Urgente</li>
+        </ul>
       </div>
 
       <button class="add-note"><i class="bi bi-plus-lg"></i></button>
@@ -67,15 +67,31 @@
 
     <div id="notes-container"></div>
 
-    <div id="edit-popup" class="hidden">
+    <div
+      id="edit-popup"
+      class="hidden"
+      role="dialog"
+      aria-labelledby="popup-title"
+      aria-modal="true"
+    >
       <div id="edit-popup-content">
         <h3>Editar nota</h3>
-        <textearea id="edit-texteare"></textearea>
-        <div id="edit-labels">
-          <button class="priority-btn" data-value="baixa">Baixa</button>
-          <button class="priority-btn" data-value="media">Média</button>
-          <button class="priority-btn" data-value="alta">Alta</button>
-          <button class="priority-btn" data-value="urgente">Urgente</button>
+        <textarea id="edit-textarea"></textarea>
+        <div id="priority-wrapper">
+          <button id="priority-toggle">
+            Selecionar prioridade <i class="bi bi-chevron-down"></i>
+          </button>
+          <ul id="priority-list" class="hidden">
+            <li data-value="baixa">Baixa</li>
+            <li data-value="media">Média</li>
+            <li data-value="alta">Alta</li>
+            <li data-value="urgente">Urgente</li>
+          </ul>
+        </div>
+
+        <div id="edit-popup-buttons">
+          <button type="button" id="edit-cancel">Cancelar</button>
+          <button type="button" id="edit-save">Salvar</button>
         </div>
       </div>
     </div>

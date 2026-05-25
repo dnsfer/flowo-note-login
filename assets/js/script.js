@@ -4,10 +4,14 @@ const noteContent = document.querySelector("#note-content");
 const addNoteBtn = document.querySelector(".add-note");
 const labelPickerBtn = document.querySelector("#label-picker-btn");
 const labelPopup = document.querySelector("#label-popup");
-
 // DARK MODE
 const themeToggle = document.querySelector("#theme-toggle");
 const icon = themeToggle.querySelector("i");
+const priorityToggle = document.querySelector("#priority-toggle");
+const priorityList = document.querySelector("#priority-list");
+const editPopup = document.querySelector("#edit-popup");
+const editTextarea = document.querySelector("#edit-textarea");
+let editingId = null;
 
 // FUNÇÕES
 function getNotes() {
@@ -28,7 +32,6 @@ function createNote(id, content, labelsHTML, fixed = false) {
     <div class="note-labels">${labelsHTML}</div>
     <textarea placeholder="Anote sua tarefa?">${content}</textarea>
     <div class="note-icons">
-      
       <i class="bi bi-stickies"></i>
       <i class="bi bi-trash3"></i>
     </div>
@@ -39,13 +42,20 @@ function createNote(id, content, labelsHTML, fixed = false) {
   });
 
   const pinIcon = document.createElement("i");
-
-  pinIcon.classList.add(...["bi", "bi-pin-angle-fill"]);
-
+  pinIcon.classList.add("bi", "bi-pin-angle-fill");
   element.appendChild(pinIcon);
 
   element.querySelector(".bi-pin-angle-fill").addEventListener("click", () => {
     toggleFixNote(id);
+  });
+
+  element.addEventListener("click", (e) => {
+    if (
+      e.target.closest(".bi-trash3") ||
+      e.target.closest(".bi-pin-angle-fill")
+    )
+      return;
+    openEditPopup(id, content);
   });
 
   return element;
@@ -57,8 +67,6 @@ function toggleFixNote(id) {
   targetNote.fixed = !targetNote.fixed;
   saveNotes(notes);
   fixedRender();
-
-  
 }
 
 function addNote() {
@@ -160,6 +168,21 @@ function deleteNote(id, element) {
 
   element.remove();
 }
+
+priorityList.querySelectorAll("li").forEach((li) => {
+  li.addEventListener("click", () => {
+    priorityToggle.innerHTML = `${li.textContent} <i class="bi bi-chevron-down"></i>`;
+    priorityToggle.dataset.selected = li.dataset.value;
+
+    priorityList.classList.add("hidden");
+  });
+});
+
+function openEditPopup(id, content) {
+  editingId = id;
+  editTextarea.value = content;
+  editPopup.classList.remove("hidden");
+}
 // EVENTOS
 addNoteBtn.addEventListener("click", () => addNote());
 
@@ -175,6 +198,20 @@ labelPickerBtn.addEventListener("click", (e) => {
 document.addEventListener("click", (e) => {
   if (!e.target.closest("#label-picker-wrapper")) {
     labelPopup.classList.add("hidden");
+  }
+});
+
+priorityToggle.addEventListener("click", () => {
+  priorityList.classList.toggle("hidden");
+});
+
+document.querySelector("#edit-cancel").addEventListener("click", () => {
+  editPopup.classList.add("hidden");
+});
+
+editPopup.addEventListener("click", (e) => {
+  if (!e.target.closest("#edit-popup-content")) {
+    editPopup.classList.add("hidden");
   }
 });
 

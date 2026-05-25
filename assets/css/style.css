@@ -13,7 +13,6 @@
     --pin-color: #7575755b;
     --priority-text: #3d353500;
     --note-fixed: #93acb157;
-    --shadow: 
 }
 
 /* Tema escuro */
@@ -263,7 +262,7 @@ header {
 }
 
 
-.note-icons{
+.note-icons {
     position: absolute;
     bottom: 2px;
     left: 28px;
@@ -271,6 +270,7 @@ header {
     align-items: center;
     gap: 6px;
 }
+
 .note-icons .bi-stickies,
 .note-icons .bi-trash3 {
     font-size: 1rem;
@@ -286,11 +286,12 @@ header {
     color: #b9b8b8;
 
 }
-.note-icons .bi-trash3:hover{
+
+.note-icons .bi-trash3:hover {
     color: #a83333;
 }
 
-.note .bi-stickies:hover{
+.note .bi-stickies:hover {
     color: rgb(36, 92, 124);
 }
 
@@ -384,7 +385,7 @@ header {
 
 }
 
-.note-id{
+.note-id {
     position: absolute;
     top: 12px;
     right: 10px;
@@ -392,27 +393,27 @@ header {
     color: var(--pin-color);
     font-weight: 600;
     letter-spacing: .11rem;
-    
+
 }
 
 
 /* POPUP EDIT CARDS */
 
-#edit-popup{
+#edit-popup {
     position: fixed;
     inset: 0;
-    background: #1111113d;
+    background: #11111105;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 999;
 }
 
-/* #edit-popup .hidden{
+#edit-popup.hidden {
     display: none;
-} */
+}
 
-#edit-popup-content{
+#edit-popup-content {
     background: var(--card-bg);
     color: var(--text-color);
     padding: 25px;
@@ -420,7 +421,122 @@ header {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    width: 320px;
+    width: 520px;
     box-shadow: var(--shadow);
+}
+
+#edit-popup-content h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+#edit-textarea {
+    width: 100%;
+    height: 150px;
+    resize: none;
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    background: var(--input-bg);
+    color: var(--text-color);
+    font-family: "Poppins", sans-serif;
+    font-size: .9rem;
+    padding: 12px;
+    outline: none;
+}
+
+#priority-wrapper {
+    position: relative;
+}
+
+#priority-toggle {
+    width: 100%;
+    padding: 9px 15px;
+    border-radius: 19px;
+    border: .3px solid var(--border-color);
+    background: var(--input-bg);
+    color: var(--text-color);
+    font-family: "Poppins", sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#priority-list {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    width: 100%;
+    background: var(--card-bg);
+    border: .5px solid var(--border-color);
+    border-radius: 20px;
+    list-style: none;
+    overflow: hidden;
+    z-index: 999;
+    box-shadow: var(--shadow);
+}
+
+#priority-list.hidden {
+    display: none;
+}
+
+#priority-list li {
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+#priority-list li:hover {
+    background: var(--input-bg);
+}
+
+#priority-list li.baixa {
+    color: #3B6D11;
+}
+
+#priority-list li.media {
+    color: #bd761f;
+}
+
+#priority-list li.alta {
+    color: #c02424;
+}
+
+#priority-list li.urgente {
+    color: #511880;
+}
+
+/* BUTTONS DO POPUP */
+
+#edit-popup-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    
+}
+
+#edit-popup-buttons{
+    margin-top: 8px;
+}
+
+#edit-popup-buttons button{
+    padding: 8px 15px;
+    font-family: "Poppins", sans-serif;
+    outline: none;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+#edit-popup-buttons #edit-cancel{
+    background: var(--button-bg);
+    color: var(--button-text);
+    font-weight: 500;
+    
 
 }
