@@ -250,7 +250,7 @@ header {
 }
 
 .note-icons .bi-pin-angle-fill {
-    font-size: 1rem;
+    font-size: 1.3rem;
     color: var(--pin-color);
     border-radius: 25px;
     padding: 4px 6px;
@@ -271,9 +271,8 @@ header {
     gap: 6px;
 }
 
-.note-icons .bi-stickies,
 .note-icons .bi-trash3 {
-    font-size: 1rem;
+    font-size: 1.3rem;
     padding: 5px;
     transition: .3s;
     color: var(--pin-color);
@@ -281,23 +280,20 @@ header {
     opacity: 0;
 }
 
-.note .bi-trash3:hover,
-.note .bi-stickies:hover {
+.note .bi-trash3:hover{
     color: #b9b8b8;
 
 }
 
 .note-icons .bi-trash3:hover {
-    color: #a83333;
+    color: #8333a8;
 }
 
-.note .bi-stickies:hover {
-    color: rgb(36, 92, 124);
-}
+
 
 .note.fixed {
     background: var(--note-fixed);
-    border: 2px solid goldenrod;
+    border: 1px solid #aaaaaa;
 }
 
 #label-picker-wrapper {
@@ -316,6 +312,11 @@ header {
     font-family: "Poppins", sans-serif;
     font-size: 0.85rem;
     cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+
 }
 
 #label-popup {
@@ -334,16 +335,44 @@ header {
     box-shadow: 0 4px 12px #0000001a;
 }
 
-#label-popup label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: .85rem;
-    cursor: pointer;
-}
-
 #label-popup.hidden {
     display: none;
+}
+
+#label-popup {
+    list-style: none;
+}
+
+#label-popup li {
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+#label-popup li:hover {
+    background: var(--input-bg);
+}
+
+#label-popup li.selected {
+    font-weight: 600;
+}
+
+#label-popup li[data-value="baixa"].selected {
+    color: #3B6D11;
+}
+
+#label-popup li[data-value="media"].selected {
+    color: #bd761f;
+}
+
+#label-popup li[data-value="alta"].selected {
+    color: #c02424;
+}
+
+#label-popup li[data-value="urgente"].selected {
+    color: #511880;
 }
 
 .note-labels {
@@ -517,14 +546,14 @@ header {
     align-items: center;
     justify-content: center;
     gap: 12px;
-    
+
 }
 
-#edit-popup-buttons{
+#edit-popup-buttons {
     margin-top: 8px;
 }
 
-#edit-popup-buttons button{
+#edit-popup-buttons button {
     padding: 8px 15px;
     font-family: "Poppins", sans-serif;
     outline: none;
@@ -533,10 +562,19 @@ header {
     cursor: pointer;
 }
 
-#edit-popup-buttons #edit-cancel{
+#edit-popup-buttons #edit-cancel {
     background: var(--button-bg);
     color: var(--button-text);
     font-weight: 500;
-    
+}
 
+#edit-popup-buttons #edit-save {
+    background: var(--button-bg);
+    color: var(--button-text);
+    font-weight: 500;
+    transition: opacity 0.2s ease;
+}
+
+#edit-popup-buttons #edit-save:hover {
+    opacity: 0.8;
 }

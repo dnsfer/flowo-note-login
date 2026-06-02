@@ -12,6 +12,7 @@ const priorityList = document.querySelector("#priority-list");
 const editPopup = document.querySelector("#edit-popup");
 const editTextarea = document.querySelector("#edit-textarea");
 let editingId = null;
+let selectedLabel = null;
 
 // FUNÇÕES
 function getNotes() {
@@ -32,7 +33,6 @@ function createNote(id, content, labelsHTML, fixed = false) {
     <div class="note-labels">${labelsHTML}</div>
     <textarea placeholder="Anote sua tarefa?">${content}</textarea>
     <div class="note-icons">
-      <i class="bi bi-stickies"></i>
       <i class="bi bi-trash3"></i>
     </div>
   `;
@@ -73,37 +73,26 @@ function addNote() {
   const texto = noteContent.value.trim();
   if (!texto) return;
 
-  const selecionadas = [
-    ...document.querySelectorAll("#label-popup input:checked"),
-  ];
-  const labelsHTML = selecionadas
-    .map(
-      (cb) =>
-        `<span class="label-tag ${
-          cb.value
-        }">${cb.labels[0].textContent.trim()}</span>`
-    )
-    .join("");
+  const labelsHTML = selectedLabel
+    ? `<span class="label-tag ${selectedLabel.value}">${selectedLabel.text}</span>`
+    : "";
 
   const noteObject = {
     id: generateId(),
     content: texto,
     fixed: false,
-    labels: selecionadas.map((cb) => ({
-      value: cb.value,
-      text: cb.labels[0].textContent.trim(),
-    })),
+    labels: selectedLabel ? [selectedLabel] : [],
   };
-  // Preenche o Array na LocalStorage
-  const notes = JSON.parse(localStorage.getItem("notes") || "[]");
+
+  const notes = getNotes();
   notes.push(noteObject);
   saveNotes(notes);
 
-  const noteElement = createNote(noteObject.id, noteObject.content, labelsHTML);
-  notesContainer.appendChild(noteElement);
+  fixedRender();
 
   noteContent.value = "";
-  selecionadas.forEach((cb) => (cb.checked = false));
+  selectedLabel = null;
+  labelPickerBtn.innerHTML = `<i class="bi bi-tag-fill"></i> Etiquetas`;
   labelPopup.classList.add("hidden");
 }
 
@@ -144,21 +133,6 @@ function toggleTheme() {
   document.documentElement.dataset.theme = newTheme;
   icon.className = isDark ? "bi bi-moon-fill" : "bi bi-sun-fill";
   localStorage.setItem("theme", newTheme);
-}
-
-function loadNotes() {
-  const notes = JSON.parse(localStorage.getItem("notes") || "[]");
-
-  notes.forEach((note) => {
-    const labelsHTML = note.labels
-      .map(
-        (label) => `<span class="label-tag ${label.value}">${label.text}</span>`
-      )
-      .join("");
-
-    const noteElement = createNote(note.id, note.content, labelsHTML);
-    notesContainer.appendChild(noteElement);
-  });
 }
 
 function deleteNote(id, element) {
@@ -215,6 +189,64 @@ editPopup.addEventListener("click", (e) => {
   }
 });
 
+labelPopup.querySelectorAll("li").forEach((li) => {
+  li.addEventListener("click", () => {
+    labelPopup
+      .querySelectorAll("li")
+      .forEach((l) => l.classList.remove("selected"));
+    li.classList.add("selected");
+    selectedLabel = { value: li.dataset.value, text: li.textContent.trim() };
+    labelPopup.classList.add("hidden");
+    labelPickerBtn.innerHTML = `<i class="bi bi-tag-fill"></i> ${li.textContent.trim()}`;
+  });
+});
+
+document.querySelector("#exports-notes").addEventListener("click", () => {
+  const notes = getNotes();
+
+  const header = "Conteúdo,Etiqueta,Fixado";
+
+  const rows = notes.map((note) => {
+    const conteudo = `"${note.content.replace(/"/g, '""')}"`;
+    const etiqueta =
+      note.labels.length > 0 ? note.labels[0].text : "Sem etiqueta";
+    const fixado = note.fixed ? "Sim" : "Não";
+
+    return `${conteudo}, ${etiqueta}, ${fixado}`;
+  });
+
+  const csv = [header, ...rows].join("\n");
+
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "flowo-notes.csv";
+  link.click();
+
+  URL.revokeObjectURL(url);
+});
+
+document.querySelector("#edit-save").addEventListener("click", () => {
+  const notes = getNotes();
+  const targetNote = notes.find((n) => n.id === editingId);
+
+  targetNote.content = editTextarea.value.trim();
+
+  const selectedValue = priorityToggle.dataset.selected;
+  const selectedText = selectedValue
+    ? priorityList.querySelector(`[data-value="${selectedValue}"]`).textContent
+    : null;
+
+  targetNote.labels = selectedValue
+    ? [{ value: selectedValue, text: selectedText }]
+    : targetNote.labels;
+
+  saveNotes(notes);
+  fixedRender();
+  editPopup.classList.add("hidden");
+});
 // Inicialização
 initTheme();
 fixedRender();
