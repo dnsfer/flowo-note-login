@@ -157,6 +157,21 @@ function openEditPopup(id, content) {
   editTextarea.value = content;
   editPopup.classList.remove("hidden");
 }
+
+function searchCards() {
+  const input = document.getElementById("search-input").value.toLowerCase();
+  const cards = document.querySelectorAll(".note");
+
+  notes.forEach((note) => {
+    const textare = note.querySelector("textarea");
+    const text = textarea ? textarea.value.toLowerCase() : "";
+    const label = note.querySelector(".label-tag");
+    const labelText = label ? label.textContent.toLowerCase() : "";
+
+    const match = text.includes(input) || labelText.includes(input);
+    note.style.display = match ? "block" : "none";
+  });
+}
 // EVENTOS
 addNoteBtn.addEventListener("click", () => addNote());
 
@@ -247,6 +262,8 @@ document.querySelector("#edit-save").addEventListener("click", () => {
   fixedRender();
   editPopup.classList.add("hidden");
 });
+
+document.getElementById("search-input").addEventListener("input", searchCards);
 // Inicialização
 initTheme();
 fixedRender();
